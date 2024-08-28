@@ -1,0 +1,15 @@
+*~
+*doc
+*log
+/tmp
+/__pycache__/*
+*pyc
+.ipynb*
+*.sublime-workspace
+.directory/*
+**/logs/
+
+*.zip
+*.tgz
+*.gz
+

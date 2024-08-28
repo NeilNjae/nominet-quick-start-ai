@@ -1,0 +1,254 @@
+- pattern: ?X hello ?Y
+  responses:
+  - how do you do.  please state your problem
+
+- pattern: ?X computer ?Y
+  responses:
+  - do computers worry you
+  - what do you think about machines
+  - why do you mention computers
+  - what do you think machines have to do with your problem
+
+- pattern: ?X name ?Y
+  responses:
+  - i am not interested in names
+
+- pattern: ?X sorry ?Y
+  responses:
+  - please don't apologize
+  - apologies are not necessary
+  - what feelings do you have when you apologize
+
+- pattern: ?X i remember ?Y
+  responses:
+  - do you often think of ?Y
+  - does thinking of ?Y bring anything else to mind
+  - what else do you remember?
+  - why do you recall ?Y right now
+  - what in this present situation reminds you of ?Y
+  - what is the connection between me and ?Y
+
+- pattern: ?X do you remember ?Y
+  responses:
+  - did you think i would forget ?Y
+  - why do you think i should recall ?Y
+  - what about ?Y
+  - you mentioned ?Y
+
+- pattern: ?X if ?Y
+  responses:
+  - do you really think it is likely that ?Y
+  - do you wish that ?Y
+  - what do you think about ?Y
+  - really -- if ?Y
+
+- pattern: ?X i dreamt ?Y
+  responses:
+  - really -- ?Y
+  - have you ever fantasized ?Y while you were awake
+  - have you dreamt ?Y before
+
+- pattern: ?X i dreamed ?Y
+  responses:
+  - really -- ?Y
+  - have you ever fantasized ?Y while you were awake
+  - have you dreamed ?Y before
+
+- pattern: ?X dream ?Y
+  responses:
+  - what does this dream suggest to you
+  - do you dream often
+  - what persons appear in your dreams
+  - don't you believe that dream has to do with your problem
+
+- pattern: ?X my mother ?Y
+  responses:
+  - who else is in your family ?Y
+  - tell me more about your family
+
+- pattern: ?X my father ?Y
+  responses:
+  - your father
+  - does he influence you strongly
+  - what else comes to mind when you think of your father
+
+- pattern: ?X i want ?Y
+  responses:
+  - what would it mean if you got ?Y
+  - why do you want ?Y
+  - suppose you got ?Y soon
+
+- pattern: ?X i am glad ?Y
+  responses:
+  - how have i helped you to be ?Y
+  - what makes you happy just now
+  - can you explain why you are suddenly ?Y
+
+- pattern: ?X i am happy ?Y
+  responses:
+  - how have i helped you to be ?Y
+  - what makes you glad just now
+  - can you explain why you are suddenly ?Y
+
+- pattern: ?X i am sad ?Y
+  responses:
+  - i am sorry to hear you are depressed
+  - i'm sure it's not pleasant to be sad
+
+- pattern: ?X i am unhappy ?Y
+  responses:
+  - i am sorry to hear you are depressed
+  - i'm sure it's not pleasant to be unhappy
+
+- pattern: ?X are like ?Y
+  responses:
+  - what resemblance do you see between ?X and ?Y
+
+- pattern: ?X is like ?Y
+  responses:
+  - in what way is it that ?X is like ?Y
+  - what resemblence do you see
+  - could there really be some connection
+  - how
+
+- pattern: ?X alike ?Y
+  responses:
+  - in what way
+  - what similarities are there
+
+- pattern: ?X same ?Y
+  responses:
+  - what other connections do you see
+
+- pattern: ?X i was ?Y
+  responses:
+  - were you really
+  - perhaps i already knew you were ?Y
+  - why do you tell me you were ?Y now
+
+- pattern: ?X was i ?Y
+  responses:
+  - what if you were ?Y
+  - do you think you were ?Y
+  - what would it mean if you were ?Y
+
+- pattern: ?X i am ?Y
+  responses:
+  - in what way are you ?Y
+  - do you want to be ?Y
+
+- pattern: ?X am i ?Y
+  responses:
+  - do you believe you are ?Y
+  - would you want to be ?Y
+  - you wish i would tell you you are ?Y
+  - what would it mean if you were ?Y
+
+- pattern: ?X am ?Y
+  responses:
+  - why do you say "am"
+  - i don't understand that
+
+- pattern: ?X are you ?Y
+  responses:
+  - why are you interested in whether i am ?Y or not
+  - would you prefer it if i weren't ?Y
+  - perhaps i am ?Y in your fantasies
+
+- pattern: ?X you are ?Y
+  responses:
+  - what makes you think i am ?Y
+
+- pattern: ?X because ?Y
+  responses:
+  - is that the real reason
+  - what other reason might there be
+  - does that reason seem to explain anything else
+
+- pattern: ?X were you ?Y
+  responses:
+  - perhaps i was ?Y
+  - what do you think
+  - what if i had been ?Y
+
+- pattern: ?X i can't ?Y
+  responses:
+  - maybe you could ?Y now
+  - what if you could ?Y
+
+- pattern: ?X i feel ?Y
+  responses:
+  - do you often feel ?Y
+
+- pattern: ?X i felt ?Y
+  responses:
+  - what other feelings do you have
+
+- pattern: ?X i ?Y you ?Z
+  responses:
+  - perhaps in your fantasies we ?Y each other
+
+- pattern: ?X why don't you ?Y
+  responses:
+  - should you ?Y yourself
+  - do you believe i don't ?Y
+  - perhaps i will ?Y in good time
+
+- pattern: ?X yes ?Y
+  responses:
+  - you seem quite positive
+  - you are sure
+  - i understand
+
+- pattern: ?X no ?Y
+  responses:
+  - why not
+  - you are being a bit negative
+  - are you saying "no" just to be negative
+
+- pattern: ?X someone ?Y
+  responses:
+  - can you be more specific
+
+- pattern: ?X everyone ?Y
+  responses:
+  - surely not everyone
+  - can you think of anyone in particular
+  - who for example
+  - you are thinking of a special person
+
+- pattern: ?X always ?Y
+  responses:
+  - can you think of a specific example
+  - when
+  - what incident are you thinking of
+  - really -- always
+
+- pattern: ?X what ?Y
+  responses:
+  - why do you ask
+  - does that question interest you
+  - what is it you really want to know
+  - what do you think
+  - what comes to your mind when you ask that
+
+- pattern: ?X perhaps ?Y
+  responses:
+  - you do not seem quite certain
+
+- pattern: ?X are ?Y
+  responses:
+  - do you think they might not be ?Y
+  - possibly they are ?Y
+
+- pattern: ?X
+  responses:
+  - very interesting
+  - i am not sure i understand you fully
+  - what does that suggest to you
+  - please continue
+  - go on
+  - do you feel strongly about discussing such things
+
+
+
