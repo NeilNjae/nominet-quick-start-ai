@@ -40,7 +40,6 @@ import yaml
 import collections
 import random
 import string
-# from dataclasses import dataclass
 ```
 
 # Building ELIZA
@@ -61,10 +60,19 @@ We'll take each of these steps in turn.
 # Rules
 
 
-We represent a `Rule` as a dictionary of two elements: a `pattern` and a list of `responses`.
+We can download some rules to work with. Execute this cell.
+
+```python
+!wget --no-check-certificate https://raw.githubusercontent.com/NeilNjae/nominet-quick-start-ai/main/eliza/rules.yaml
+```
+
+You can look at the raw rules file by clicking on the "Files" icon in the left sidebar and choosing the `rules.yaml` entry. You should be alboe to see that the rules follow the structure of a pattern and a set of possible responses.
 
 
-We can now read in the set of rules from the file `rules.yaml` (open that file from the list on the left).
+We will follow that structure in our implementation and represent each rule as a dictionary of two elements: a `pattern` and a list of `responses`.
+
+
+We can now read in the set of rules from the file `rules.yaml`.
 
 ```python
 def read_rules(rules_file):
@@ -216,6 +224,10 @@ def splits(items):
     return results
 ```
 
+```python
+splits(['a', 'man', 'a', 'plan'])
+```
+
 ### End of solution
 
 
@@ -314,6 +326,7 @@ initialise successes to []
 initialise matches to [{text, pattern, {} }]
 while matches:
   set current to first element of matches
+  set new_matches to []
   if current is a successful match:
     add current's bindings to successes
     set new_matches to []
@@ -361,10 +374,6 @@ def match(text, pattern):
             new_matches = match_item(current)
         matches = matches[1:] + new_matches
     return successes
-```
-
-```python
-successful_match({'text': ['canal', 'panama'], 'pattern': [], 'bindings': {'?X': ['a', 'man', 'a', 'plan'], '?Z': []}})
 ```
 
 ```python
@@ -475,14 +484,6 @@ halt_words = 'quit halt exit stop'.split()
 
 ## Picking the one rule and binding
 
-```python
-# def candidate_rules(rules, text):
-#     """Find all the rules that match the text, returning
-#     the rules and the bindings that allow the match."""
-#     return [(rule, bindings) 
-#             for rule in rules 
-#             for bindings in match(text, rule['pattern'])]
-```
 
 Our `match` procedure can return many bindings for a rule, and there could be many rules that match as given input. Which do we choose?
 
@@ -528,21 +529,6 @@ pronoun_swaps = {
 }
 ```
 
-```python
-# def pronoun_person_swap(bindings):
-#     """Swap pronouns in the given bindings."""
-#     def swapped(words):
-#         sw = []
-#         for w in words:
-#             if w in pronoun_swaps:
-#                 sw += [pronoun_swaps[w]]
-#             else:
-#                 sw += [w]
-#         return sw
-    
-#     return {var: swapped(bindings[var]) for var in bindings}
-```
-
 ## Exercise
 
 
@@ -585,6 +571,24 @@ With ELIZA built, it's time to use it!
 We call the main loop, using the rules we loaded earlier. Use one of the halt words to stop the interaction.
 
 ```python
+eliza_loop(all_rules)
+```
+
+# Modifying ELIZA
+
+
+With the basic functionality of ELIZA, we can change its behaviour by changing the rules. 
+
+Open the `rules.yaml` file (use the "Files" icon on the left). You can modify the extisting rules, or add new ones, by typing the new rules into the file. 
+
+Change some of the rules to change how ELIZA interacts. Remember that ELIZA will respond with the first rule that matches, so you're more likely to see your rules in action if you put them near the top of the `rules.yaml` file.
+
+> Note that the formatting must be precise, with the left indents being exactly two spaces. Use an existing rule as a template.
+
+Save the file when you're done. Reload the rules then run ELIZA again.
+
+```python
+all_rules = read_rules('rules.yaml')
 eliza_loop(all_rules)
 ```
 

@@ -171,7 +171,7 @@
   - what do you think
   - what if i had been ?Y
 
-- pattern: ?X i can't ?Y
+- pattern: ?X i cant ?Y
   responses:
   - maybe you could ?Y now
   - what if you could ?Y
@@ -188,7 +188,7 @@
   responses:
   - perhaps in your fantasies we ?Y each other
 
-- pattern: ?X why don't you ?Y
+- pattern: ?X why dont you ?Y
   responses:
   - should you ?Y yourself
   - do you believe i don't ?Y
