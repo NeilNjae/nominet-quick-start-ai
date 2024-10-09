@@ -15,30 +15,46 @@ jupyter:
 
 # Predicting who would survive the _Titanic_ disaster
 
+
+In this activity, you'll develop a small machine learning model to make predictions. The data we'll use comes from the [_Titanic_ disaster of 1912](https://en.wikipedia.org/wiki/Titanic). The [_Titanic_ passengers dataset](https://www.openml.org/search?type=data&sort=runs&id=40945&status=active) has details of just over 1,000 passengers on the ship, including whether they lived or died. 
+
+We'll use this data to predict what would happen to the two stars of the [1997 film _Titanic_](https://en.wikipedia.org/wiki/Titanic_(1997_film)).
+
+On the way, you'll learn some key concepts behind machine learning.
+
+
+First, we'll load some libraries to process the data, and load the dataset. We've done some pre-processing on the data to convert it to a form that's suitable for the machine learning process we'll be using here.
+
 ```python
 import numpy as np
 import pandas as pd
-# import re
-# import xgboost as xgb
-# import seaborn as sns
 import matplotlib.pyplot as plt
 %matplotlib inline
 
 from sklearn import tree
-from sklearn import metrics
 from sklearn.model_selection import train_test_split, cross_val_score
-# from sklearn.metrics import accuracy_score
-# from sklearn.model_selection import KFold
-# from sklearn.model_selection import cross_val_score
-# from IPython.display import Image as PImage
-# from subprocess import check_call
-# from PIL import Image, ImageDraw, ImageFont
 ```
 
 ```python
 titanic_data = pd.read_csv('titanic.csv')
 titanic_data
 ```
+
+The data has one row for each passenger. The columns show the different data recorded for each passenger. The meanings of the columns are:
+
+| Column | Meaning |
+|--------|---------|
+| passenger_class | Class of ticket |
+| age | Passenger's age |
+| siblings_spouses | Number of siblings and/or spouses aboard |
+| parents_children | Number of parents and/or children aboard |
+| fare | Amount paid for the ticket |
+| has_cabin | Whether the passenger had a cabin |
+| is_female | Whether the passenger is female |
+| embarked_C | Where the passenger embarked: |
+| embarked_Q | Southampton, Cherbourg, or Queenstown |
+| embarked_S |  |
+
 
 # Looking at the data
 
@@ -48,14 +64,10 @@ Now we have the data, we can plot a few graphs to understand who did or didn't s
 The first question is, how many people were aboard? How were they distributed by class and gender?
 
 ```python
-titanic_data[['passenger_class', 'is_female']].value_counts().sort_index()#.unstack().plot.bar(stacked=True);
-```
-
-```python
 titanic_data[['passenger_class', 'is_female']].value_counts().sort_index().unstack().plot.bar(stacked=True);
 ```
 
-This shows that there were roughly equal numbers of first and second class passengers, and a about twice that for third class. It also shows that first class was about half women, second class had a few more men than women, but third class was over two-thirds women.
+This shows that there were roughly equal numbers of first and second class passengers, and about twice that for third class. It also shows that first class was about half women, second class had a few more men than women, but third class was over two-thirds women.
 
 
 The _Titanic_ disaster is reputed for the claim of "women and children first!" The idea is that women and children were given priority when getting in the limited number of lifeboats. If that is the case, we should see women and children surviving at a higher rate than men.
@@ -72,10 +84,8 @@ This clearly shows that a much greater proportion of women survived than men.
 We can also ask about whether children survived. To make the plot clearer, we group the passengers into bands of ten years each; the labels show the "tens" digit of their ages. Again, we plot how many in each age band survived.
 
 ```python
-# t = titanic_data[['age', 'survived']]
 t = pd.concat([pd.cut(titanic_data.age, bins=8, labels=list(range(8))), titanic_data.survived], axis='columns')
 t = t.value_counts().sort_index().unstack().fillna(0)
-# t = t.div(t.sum(axis='columns'), axis='rows')
 t.plot.bar(stacked=True, color=['slategray', 'lime']);
 ```
 
