@@ -36,6 +36,10 @@ from sklearn.model_selection import train_test_split, cross_val_score
 ```
 
 ```python
+!wget --no-check-certificate https://raw.githubusercontent.com/NeilNjae/nominet-quick-start-ai/main/1.titanic-survivors/titanic.csv
+```
+
+```python
 titanic_data = pd.read_csv('titanic.csv')
 titanic_data
 ```
@@ -67,7 +71,7 @@ The first question is, how many people were aboard? How were they distributed by
 titanic_data[['passenger_class', 'is_female']].value_counts().sort_index().unstack().plot.bar(stacked=True);
 ```
 
-This shows that there were roughly equal numbers of first and second class passengers, and about twice that for third class. It also shows that first class was about half women, second class had a few more men than women, but third class was over two-thirds women.
+This shows that there were roughly equal numbers of first and second class passengers, and about twice that for third class. It also shows that first class was about half women, second class had a few more men than women, but third class was over two-thirds men.
 
 
 The _Titanic_ disaster is reputed for the claim of "women and children first!" The idea is that women and children were given priority when getting in the limited number of lifeboats. If that is the case, we should see women and children surviving at a higher rate than men.
@@ -208,6 +212,12 @@ decision_tree.get_n_leaves()
 You'll see a depth of about 21 and about 200 leaves. And there are 834 records in the training data. That means that each leaf, where the classification gets made, only represents about four passengers.
 
 We can also ask the decision tree to explain how it comes to a particular decision, by following the nodes being used to make the final classification. In the "play tennis" example above, we could "windy" node, then the "outlook" node, then the "humidity" one. That gives some kind of explanation for how the decision tree came to the decision it did.
+
+First, we need to ask the tree to make predictions about the passengers in the test data.
+
+```python
+y_pred = decision_tree.predict(X_test)
+```
 
 This chunk of code looks at the tree and prints the details in a human-sensible form. Don't worry about the details of it.
 
@@ -377,7 +387,11 @@ tree.plot_tree(decision_tree,
               );
 ```
 
-We re-capture the details of the tree to generate explanations for how the tree classifies the test data.
+We re-capture the details of the tree to generate explanations for how the tree classifies the test data. That also means we generate new predictions for the test data.
+
+```python
+y_pred = decision_tree.predict(X_test)
+```
 
 ```python
 n_nodes = decision_tree.tree_.node_count

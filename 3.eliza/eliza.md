@@ -63,7 +63,7 @@ We'll take each of these steps in turn.
 We can download some rules to work with. Execute this cell.
 
 ```python
-!wget --no-check-certificate https://raw.githubusercontent.com/NeilNjae/nominet-quick-start-ai/main/eliza/rules.yaml
+!wget --no-check-certificate https://raw.githubusercontent.com/NeilNjae/nominet-quick-start-ai/main/3.eliza/rules.yaml
 ```
 
 You can look at the raw rules file by clicking on the "Files" icon in the left sidebar and choosing the `rules.yaml` entry. You should be alboe to see that the rules follow the structure of a pattern and a set of possible responses.
@@ -591,6 +591,11 @@ Save the file when you're done. Reload the rules then run ELIZA again.
 all_rules = read_rules('rules.yaml')
 eliza_loop(all_rules)
 ```
+
+# Conclusion
+
+
+Chatbots have been around since the very dawn of computers. Modern conversational agents work in very differently from this approach, but the very high-level overview of the process is the same. The rules in ELIZA are a form of language model, but one that combines both understanding its input and generating its output. The chatbot uses that language model to "understand" what the user says to it, then "decides" how to form a response. The fact that ELIZA works at all is down to two key features. One is the very restrictive domain of discourse; ELIZA simulates a [Rogerian psychotherapist](https://en.wikipedia.org/wiki/Person-centered_therapy) who only reflects back what the patient says. The other is the human propensity to anthropomorphise most things around us. People talk; ELIZA talks; therefore ELIZA must be some kind of person. It's an easy trap to fall into, to beware of it when you see other AI-generated text online.
 
 ```python
 

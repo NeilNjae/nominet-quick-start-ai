@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.3
+      jupytext_version: 1.16.1
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -24,7 +24,7 @@ Each neuron has several parameters. Each input to the neuron is weighted, and it
 
 These neurons are typically organised in _layers_, with neurons in one layer feeding forward into the next. The diagram below shows a network of a few _dense_ layers, where each input to the layer feeds into each neuron.
 
-![A sample neural network](./pic/sample_neural_network.png)
+![A sample neural network](https://github.com/NeilNjae/nominet-quick-start-ai/blob/main/4.image-classification/pic/sample_neural_network.png)
 
 To do image classification with this type of neural network, each pixel in the image is one input. The value of each pixel feeds into each neuron in the first layer, and so on through the network. The final layer has one neuron per class the network knows about, and the values at these outputs is the probability that this image is an example of each of the classes. 
 
@@ -41,6 +41,14 @@ We then go through another epoch of training and the network hopefully improves 
 
 
 Enough talk. Let's build a neural network. 
+
+
+## Important: before you start
+Before you run any cells in this notebook, you need to ensure you're using a GPU. This will massively increase the speed of using the neural networks. 
+
+Click on the Colab menu "Runtime". Select "Change runtime type". Select the "T4" GPU. This will restart the notebook, so you'll have lost any work you've already done.
+
+Once you're connected to a T4 runtime (you can see by looking at the top-right of the window, next to the "RAM" and "Disk" traces), you can start work in this noteobok.
 
 
 # Loading some data
@@ -196,7 +204,7 @@ history = model.fit(train_data,
          )
 ```
 
-We can see how the accuracy of the model changes over training. We can also see that the accuracy when using the validation accuracy is similar to the training data.
+We can see how the accuracy of the model changes over training. We can also see that the accuracy when using the validation data is similar to the training data.
 
 ```python
 acc = history.history['accuracy']
@@ -273,26 +281,25 @@ One reason for this is that network throws away all the spatial information in t
 
 That is a convolutional neural network.
 
-<!-- #region -->
+
 ## Convolution layer 
 
 The idea of the convolution layer is to create a filter (also called kernel). The filter is used to scan across the image and create a representation of the image corresponding to the filter. In this way, we can think of the filter as a specific feature extraction mechanism for the image. For instance, a filter may detect a block of colour, or a horizontal edge, or a curve. 
 
 A single convoution layer may contain many filters (32 filters in the example below). That means the layer can detect 32 features in the image. The network learns which features are important during training. 
 
-
-![title](./pic/Example-filters.png)
+![Example filters](https://github.com/NeilNjae/nominet-quick-start-ai/blob/main/4.image-classification/pic/Example-filters.png)
  
 If we use 32 different filters in the convolution layer, then we create 32 different representations, called **feature maps**, of the input image. These different feature maps in combination can help us identify the input image correctly.
 
 How a filter operates is illustrated below. Simply speaking, we overlay a filter, which is a small matrix of weights, on top of the input matrix, e.g. starting from the top-left corner and then sliding from left to right and from top to bottom. 
 
-![title](./pic/example-convolution.png)
+![An example convolution](https://github.com/NeilNjae/nominet-quick-start-ai/blob/main/4.image-classification/pic/example-convolution.png)
 
 The **filter** shown in the example is of size *3×3*. It is applied on a *5×5* input matrix (you can consider it as the matrix of pixels for an image). When the filter moves through the image it does its computation in each position, then moves to cover another *3×3* part of the input. The right-hand side matrix shows the output of each step. 
 
 *The values in the kernel are learnt during the training step.*
-<!-- #endregion -->
+
 
 # Building a CNN model
 Let's use a convolution layer for image recognition. 
@@ -300,7 +307,7 @@ Let's use a convolution layer for image recognition.
 We'll use a convolution layer that has 32 filters. We then `Flatten` those neurons into a set of 33,000 neurons, and use a couple of `Dense` layers to use those features and create the image classification.
 
 
-![title](pic/cnn-diagram-simple.png)
+![A simple CNN](https://github.com/NeilNjae/nominet-quick-start-ai/blob/main/4.image-classification/pic/cnn-diagram-simple.png)
 
 ```python
 model2 = Sequential([
@@ -404,7 +411,14 @@ model3.summary()
 Note that the last feature map is only 4×4 across, but has 64 features to choose from.
 
 
-We can now compile and train the model, this time for 30 epochs.
+## Exercise
+
+
+We can now compile and train the model, this time for **30** epochs. Apart from the number of epochs, use exactly the same code as you did above for `model2`.
+
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+### Solution
+<!-- #endregion -->
 
 ```python
 history = model3.fit(train_data,
@@ -425,6 +439,9 @@ plt.legend()
 plt.figure();
 ```
 
+### End of solution
+
+
 This seems to have gone much better. The accuracy is better, and the accuracy of the validation dataset is very close to the training dataset.
 
 How does it work on the test dataset?
@@ -432,10 +449,6 @@ How does it work on the test dataset?
 ```python
 model3_results = model3.evaluate(test_data, return_dict=True)
 model3_results
-```
-
-```python
-
 ```
 
 Your results will vary, but you'll probably see an accuracy in the 70–75% range.

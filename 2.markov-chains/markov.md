@@ -13,8 +13,9 @@ jupyter:
     name: python3
 ---
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Language generation and language models
-
+<!-- #endregion -->
 
 Can you give the next word in the following phrases?
 
@@ -38,11 +39,12 @@ We can use this facility in a few ways. One is to help us understand human speec
 
 Another application, one we'll be looking at here, is about _generating_ text that reads like a plausible new example of some source. If we build a language model using only text from one source (or a limited range of sources), that model will reflect that corpus of text. If we generate text with that model, it should have a similar style to the source.
 
-
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## A language model
+<!-- #endregion -->
 
 <!-- #region -->
-These applications rely on having a _language model_, a description of what the language should look like. There are many types of language model. You've probably heard of the "large language models" used by tools such as ChatGPT. For this example, we'll use a much smaller model, but it's surprising how good even this small, simple model can work.
+These applications rely on having a _language model_, a description of what the language should look like. There are many types of language model. You've probably heard of the "large language models" used by tools such as ChatGPT. For this example, we'll use a much smaller model, but it's surprising how well even this small, simple model can work.
 
 Our language model is inspired by the quiz above: if we know the last few words that have been used, we can make a prediction about what comes next. This is called an **_n_-gram** model in the literature, where _n_ is now many words of context we're using.
 
@@ -100,7 +102,7 @@ With only this short amount of text, the language model doesn't really tell us m
 
 You can begin to see the flavour of Dickens in this model. For instance, the bigram "was the" shows that, at least in this chapter, Dickens was concerned with time and seasons. 
 
-You should be able to see how we can use this model to generate text. If we're generating text, and we've just generated a particular _n_-gram, we can look up that _n_-gram in the language model and see the words that could come after it. We pick one of the listed words, weighted by how the probability of occurrence, and emit that word. That gives us a new _n_-gram, and the process repeats.
+You should be able to see how we can use this model to generate text. If we're generating text, and we've just generated a particular _n_-gram, we can look up that _n_-gram in the language model and see the words that could come after it. We pick one of the listed words, weighted by the probability of occurrence, and emit that word. That gives us a new _n_-gram, and the process repeats.
 
 For instance, let's say we start with the bigram "it was". We can look up words that come next, and the most most likey is "the". We emit that word and update the "most recent bigram" to be "was the". We pick one words that could follow: "season". Next comes "of", then a choice between "Light" and "Darkness". We can build up more text as we want by repeating the process.
 
@@ -127,12 +129,11 @@ Now you have the idea of how the _n_-gram language model is built and used, it's
 3. Use the model to generate new text
 <!-- #endregion -->
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Aside: reading text files
+<!-- #endregion -->
 
-
-We need to read large amount of text to populate our language models: a novel's-worth is about the minimum we can get away with. We need to split that text into words (and punctuation), and also split the text into sentences. (We'll generate one sentence at a time.)
-
-The reading and pre-processing this text is full of fiddly details that aren't worth going into. Instead, we'll just use these couple of functions to do the pre-processing for us.
+We need to read large amount of text to populate our language models: a novel's-worth is about the minimum we can get away with. We need to split that text into words (and punctuation). The reading and pre-processing this text is full of fiddly details that aren't worth going into. Instead, we'll just use these couple of functions to do the pre-processing for us.
 
 ```python
 import re
@@ -176,8 +177,9 @@ tokenise(sample_text)
 sjoin(tokenise(sample_text))
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Representing the language model
-
+<!-- #endregion -->
 
 Now we understand what the language model should look like, we can work out how to represent it in Python.
 
@@ -234,17 +236,17 @@ The other wrinkle is that Python won't let us use (mutable) lists of words as th
 
 But with all those implementation details out of the way, let's get on with some programming!
 
-
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Buidling the language model
-
+<!-- #endregion -->
 
 With the utilities above, we can read a text file and split it into tokens. Our next job is to use that stream of tokens to build the language model.
 
 We'll build this up in stages, working from finding _n_-grams in a list to building the whole language model.
 
-
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Exercise
-
+<!-- #endregion -->
 
 Write a piece of code that will find and print the trigrams (three-word slices) of `tokenise(sample_text)`. The last couple could well be shorter than three words.
 
@@ -252,7 +254,9 @@ Write a piece of code that will find and print the trigrams (three-word slices) 
 
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Solution
+<!-- #endregion -->
 
 ```python
 sentence = tokenise(sample_text)
@@ -260,8 +264,9 @@ for i in range(len(sentence)):
     print(sentence[i:i+3])
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Exercise
-
+<!-- #endregion -->
 
 Modify that code so it doesn't generate the final too-short trigram. This will mean stopping the loop earlier. 
 
@@ -269,7 +274,9 @@ Modify that code so it doesn't generate the final too-short trigram. This will m
 
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Solution
+<!-- #endregion -->
 
 ```python
 sentence = tokenise(sample_text)
@@ -277,8 +284,9 @@ for i in range(len(sentence)-2):
     print(sentence[i:i+3])
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Exercise
-
+<!-- #endregion -->
 
 Modify the code above to find the bigram we want and the next token. Convert the bigram from a list to a tuple and store it in a variable `ngram`. Store the next token in a variable `next_token`. 
 
@@ -286,7 +294,9 @@ Modify the code above to find the bigram we want and the next token. Convert the
 
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Solution
+<!-- #endregion -->
 
 ```python
 sentence = tokenise(sample_text)
@@ -296,7 +306,9 @@ for i in range(len(sentence)-2):
     print(ngram, next_token)
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Exercise
+<!-- #endregion -->
 
 <!-- #region -->
 Now store these bigrams and next tokens in a language model.
@@ -318,7 +330,9 @@ model[ngram].update([next_token])
 
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Solution
+<!-- #endregion -->
 
 ```python
 sentence = tokenise(sample_text)
@@ -362,8 +376,9 @@ len(sample_chapter_model)
 sample_chapter_model[('it', 'was')]
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Generating text
-
+<!-- #endregion -->
 
 Now we have a model, we can use it to generate text.
 
@@ -393,9 +408,9 @@ A typical generation run is below. You can see how the language model guides the
 | it was the season of darkness , it was the age of foolishness , it was the year of | year of | our → 1 | our |
 
 
-
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Picking a random next token
-
+<!-- #endregion -->
 
 One thing we need to do is pick a suitable next token, given a particular _n_-gram and a langauge model.
 
@@ -497,9 +512,11 @@ arthur_model = build_model(tokenise(arthur), tuple_size=3)
 len(arthur_model)
 ```
 
-```python
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+## Generating random text
+<!-- #endregion -->
 
-```
+We've got all the parts. Let's generate some large pieces of text. Do these have the same style as the originals? Are those styles distinctive enough to tell which model generated which text?
 
 ```python
 pprint(generate_text(odyssey_model))
@@ -521,8 +538,9 @@ pprint(generate_text(arthur_model))
 
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Merging models
-
+<!-- #endregion -->
 
 We have several language models. As you've seen, each generates text in the style of the source text. What happens if we combine models?
 
@@ -537,7 +555,9 @@ c2 = collections.Counter(tokenise("the cat lay on the bed"))
 c1, c2, c1 + c2
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ## Exercise
+<!-- #endregion -->
 
 <!-- #region -->
 Given the two models below, create a **new** model that combines them. The result should be:
@@ -563,7 +583,9 @@ m2 = build_model(tokenise("the cat lay on the bed"))
 m1, m2
 ```
 
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### Solution
+<!-- #endregion -->
 
 ```python
 m12 = collections.defaultdict(collections.Counter)
@@ -573,6 +595,8 @@ for k in m2:
     m12[k] += m2[k]
 m12, m1, m2
 ```
+
+We can wrap that up in a function.
 
 ```python
 def merge_models(model1, model2):
@@ -584,13 +608,11 @@ def merge_models(model1, model2):
     return merged
 ```
 
-```python
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+### Generating merged-model text
+<!-- #endregion -->
 
-```
-
-```python
-
-```
+Let's combine some models and generate text with them. What does this generated text read like? What style is it in?
 
 ```python
 two_cities_pride_model = merge_models(two_cities_model, pride_model)
@@ -608,6 +630,26 @@ arthur_pride_model = merge_models(arthur_model, pride_model)
 pprint(generate_text(arthur_pride_model, max_length=500))
 ```
 
+You'll probably see the text in different styles. The combination of _Pride and Prejudice_ and _A Tale of Two Cities_ isn't too jarring, as the source texts are similar in style. But the combination of a ninteenth-century novel and an ancient epic poem is likely to have a disconcerting effect. You should be able to see a sentence or two that came from one source, then it switches to a sentence or two from the other. 
+
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
+# Conclusions
+<!-- #endregion -->
+
+You've seen a couple of things in this activity. 
+
+First, you should have the idea of what a _language model_ is. It's nothing clever, just some data derived from source text that describes what's "normal" or "expected" from that source. The "large language models" of ChatGPT and similar work in a different way, and are much larger than this, but are doing essentially the same thing.
+
+Second, you've seen how "style" is something that can be encoded in a langauge model quite easily, and replicated fairly well.
+
+Third, you've seen how even randomly generated output can appear somewhat plausible if we don't engage our critical faculties enough to really pay attention to the output we see. Don't believe the hype around the current crop of AI systems!
+
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 # Acknowledgements
 
-All the source texts used here come from [Project Gutenberg](https://www.gutenberg.org/), an online source of public domain works. https://www.gutenberg.org/policy/permission.htmlI've modified the books slightly from the versions available there, to remove the legal licence boilerplate and convert some characters to ASCII equivalents. 
+All the source texts used here come from [Project Gutenberg](https://www.gutenberg.org/), an online source of public domain works, with [certain permissions and conditions attached](https://www.gutenberg.org/policy/permission.html) . I've modified the books slightly from the versions available there, to remove the legal licence boilerplate and convert some characters to ASCII equivalents. 
+<!-- #endregion -->
+
+```python
+
+```
